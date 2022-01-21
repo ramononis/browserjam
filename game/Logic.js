@@ -1,5 +1,6 @@
 const {N_COLORS} = require("./State");
 const MIN_MATCH_LENGTH = 3
+const MIN_DIFF_LENGTH = N_COLORS - 2
 function move(state, x1, y1, x2, y2) {
     // Check that selected cells are adjacent
     if (!_cellsAreAdjacent(state, x1, y1, x2, y2)) {
@@ -12,10 +13,16 @@ function move(state, x1, y1, x2, y2) {
     _swapCells(state, x1, y1, x2, y2)
 
     // While matches are detected:
-    for (let matches = _findMatches(state); matches.equal.length > 0; matches = _findMatches(state)) {
+    for (let matches = _findMatches(state); (matches.equal.length > 0 || matches.diff.length > 0); matches = _findMatches(state)) {
         let cellsToRemove = []
         matches.equal.forEach(m => {
             state.score1++
+            m.forEach(c => {
+                cellsToRemove.push(c)
+            })
+        })
+        matches.diff.forEach(m => {
+            state.score2++
             m.forEach(c => {
                 cellsToRemove.push(c)
             })
@@ -49,7 +56,7 @@ function _findMatches(state) {
     matches['equal'] = []
     matches['diff'] = []
 
-    // Horizontal matches
+    // Horizontal equal matches
     for (let y = 0; y < state.board.length; y++) {
         for (let x = 0; x < state.board.length - (MIN_MATCH_LENGTH - 1); x++) {
             let col = state.board[y][x]
@@ -66,7 +73,7 @@ function _findMatches(state) {
         }
     }
 
-    // Vertical matches
+    // Vertical equal matches
     for (let x = 0; x < state.board.length; x++) {
         for (let y = 0; y < state.board.length - (MIN_MATCH_LENGTH - 1); y++) {
             let col = state.board[y][x]
@@ -78,6 +85,42 @@ function _findMatches(state) {
             }
             if (end - y >= MIN_MATCH_LENGTH) { // This is a match
                 matches.equal.push(match)
+            }
+            y = end - 1
+        }
+    }
+
+    // Horizontal diff matches
+    for (let y = 0; y < state.board.length; y++) {
+        for (let x = 0; x < state.board.length - (MIN_DIFF_LENGTH - 1); x++) {
+            let cols = [state.board[y][x]]
+            let end = x + 1
+            let diff = [{x: x, y: y}]
+            while (end < state.board.length && !cols.includes(state.board[y][end])) {
+                diff.push({x: end, y: y})
+                cols.push(state.board[y][end])
+                end++
+            }
+            if (cols.length >= MIN_DIFF_LENGTH) {
+                matches.diff.push(diff)
+            }
+            x = end - 1
+        }
+    }
+
+    // Vertical diff matches
+    for (let x = 0; x < state.board.length; x++) {
+        for (let y = 0; y < state.board.length - (MIN_DIFF_LENGTH - 1); y++) {
+            let cols = [state.board[y][x]]
+            let end = y + 1
+            let diff = [{x: x, y: y}]
+            while (end < state.board.length && !cols.includes(state.board[end][x])) {
+                diff.push({x: end, y: y})
+                cols.push(state.board[y][end])
+                end++
+            }
+            if (cols.length >= MIN_DIFF_LENGTH) {
+                matches.diff.push(diff)
             }
             y = end - 1
         }

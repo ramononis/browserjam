@@ -21,6 +21,12 @@ function move(state, x1, y1, x2, y2) {
                 cellsToRemove.push(c)
             })
         })
+        matches.diff.forEach(m => {
+            state.score2++
+            m.forEach(c => {
+                cellsToRemove.push(c)
+            })
+        })
         //Remove cells
         _removeCells(state, cellsToRemove)
     }

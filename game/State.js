@@ -21,5 +21,6 @@ class State {
     score1 = 0
     score2 = 0
     board
+    turn = 0 // 0 -> player1, 1 -> player2
 }
 exports.State = State

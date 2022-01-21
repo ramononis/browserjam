@@ -93,3 +93,12 @@ document.addEventListener("drop", function(event) {
 }, false);
 
 exports.visualize = visualize
+exports.highlight = async function (cells) {
+    cells.forEach(xy => {
+        let x = xy.x
+        let y = xy.y
+        let cell = document.getElementById(`c-${y}-${x}`)
+        cell.style.background = 'red'
+    })
+    await new Promise(resolve => setTimeout(resolve, 1000));
+}

@@ -12,3 +12,49 @@ table {
     border-collapse: collapse;
 }
 
+.type-0, .type-1, .type-2, .type-3, .type-4, .type-5, .type-6, .type-7, .type-8, .type-9 {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+.type-0 {
+    background-image: url(/icons/charmander.svg);
+}
+
+.type-1 {
+    background-image: url(/icons/bulbasaur.svg);
+}
+
+.type-2 {
+    background-image: url(/icons/squirtle.svg);
+}
+
+.type-3 {
+    background-image: url(/icons/pikachu.svg);
+}
+
+.type-4 {
+    background-image: url(/icons/snorlax.svg);
+}
+
+.type-5 {
+    background-image: url(/icons/psyduck.svg);
+}
+
+.type-6 {
+    background-image: url(/icons/meowth.svg);
+}
+
+.type-7 {
+    background-image: url(/icons/caterpie.svg);
+}
+
+.type-8 {
+    background-image: url(/icons/eevee.svg);
+}
+
+.type-9 {
+    background-image: url(/icons/mew.svg);
+}
+

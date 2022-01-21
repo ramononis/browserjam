@@ -14,7 +14,6 @@ function visualize(state) {
             let cell = document.createElement('div')
             cell.classList.add('draggable',`type-${stateCell}`)
             cell.setAttribute('draggable', 'true')
-            cell.innerText = stateCell
 
             tableCell.appendChild(cell)
         })

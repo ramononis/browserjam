@@ -1,5 +1,8 @@
 function visualize(state) {
     const table = document.querySelector('#table-board')
+    while (table.firstChild) {
+        table.removeChild(table.firstChild);
+    }
     console.log(state)
 
     state.board.forEach((stateRow, row) => {

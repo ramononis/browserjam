@@ -1,13 +1,24 @@
 // TODO: index.html en visualize implementeren
 function visualize(state) {
-    const canvas = document.querySelector('#canvas');
-    console.log(canvas)
-    console.log("hallo")
-    const width = canvas.width;
-    const height = canvas.height;
+    const table = document.querySelector('#table-board')
+    console.log(state)
 
-    let ctx = canvas.getContext('2d');
-    ctx.strokeRect(50, 50, 150, 100);
+    state.board.forEach((stateRow, row) => {
+        console.log(stateRow);
+        let tableRow = table.insertRow();
+        stateRow.forEach((stateCell, col) => {
+            let tableCell = tableRow.insertCell();
+            tableCell.classList.add('dropzone')
+            tableCell.id = `c-${row}-${col}`
+
+            let cell = document.createElement('div')
+            cell.classList.add('draggable',`type-${stateCell}`)
+            cell.setAttribute('draggable', 'true')
+            cell.innerText = stateCell
+
+            tableCell.appendChild(cell)
+        })
+    })
 }
 
 exports.visualize = visualize

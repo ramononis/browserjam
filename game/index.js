@@ -5,7 +5,7 @@ let state = new State(1)
 
 console.log(state)
 
-document.addEventListener("DOMContentLoaded", () => { visualize({}) })
+document.addEventListener("DOMContentLoaded", () => { visualize(state) })
 
     // document.onload(() => { visualize({}) })
 

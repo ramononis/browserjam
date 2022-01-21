@@ -2,7 +2,7 @@
 // const seedrandom = require('seedrandom')
 
 const BOARD_SIZE = 10
-const N_COLORS = 5
+const N_COLORS = 10
 class State {
     constructor(seed) {
         // random.use(seedrandom(seed))

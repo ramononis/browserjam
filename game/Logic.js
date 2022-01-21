@@ -5,7 +5,7 @@ function move(state, x1, y1, x2, y2) {
     if (!_cellsAreAdjacent(state, x1, y1, x2, y2)) {
         // invalid move,
         // TODO: emit something?
-        return;
+        return state;
     }
 
     // Swap cells
@@ -97,7 +97,7 @@ function _removeCells(state, cellsToRemove) {
     for (let y = state.board.length - 1; y >= 0; y--) {
         for (let x = state.board.length - 1; x >= 0; x--) {
             if (state.board[y][x] === null) {
-                for (let y2 = y; y >= 0; y--) {
+                for (let y2 = y; y2 >= 0; y2--) {
                     if (state.board[y2][x] !== null) {
                         state = _swapCells(state, x, y, x, y2)
                         break

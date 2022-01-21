@@ -7,6 +7,7 @@ const socket = io("https://browserjam-event-server.herokuapp.com/" + GAME_NAME);
 const players = new Map()
 let currentState = {}
 let lines = ""
+let idOtherPlayer = ""
 
 function joinGame(roomName, playerName) {
     socket.emit('join', {
@@ -24,6 +25,7 @@ function doMoveAndUpdateState(row1, col1, row2, col2) {
     if (socket.id === currentState.turn) {
         let newState = move(currentState, col1, row1, col2, row2)
         currentState = newState
+        currentState.turn = idOtherPlayer
         socket.emit('state', currentState);
     }
 }
@@ -36,9 +38,13 @@ socket.on('join', player => {
     players[player.id] = player;
     addLog(JSON.stringify(player) + " joined the game")
 
+    if (player.id !== socket.id) {
+        idOtherPlayer = player.id
+    }
+
     if ( player.id !== socket.id && Object.keys(players).length === 2 ) {
         currentState = new State(41)
-        currentState.turn = Object.keys(players)[Math.floor(Math.random(0, players.length))]
+        currentState.turn = idOtherPlayer
         socket.emit('state', currentState);
     }
 

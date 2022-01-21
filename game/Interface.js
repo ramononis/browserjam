@@ -70,6 +70,7 @@ document.addEventListener("dragleave", function(event) {
 }, false);
 
 document.addEventListener("drop", function(event) {
+
     // prevent default action (open as link for some elements)
     event.preventDefault();
     // move dragged elem to the selected drop target
@@ -93,12 +94,11 @@ document.addEventListener("drop", function(event) {
 }, false);
 
 exports.visualize = visualize
-exports.highlight = async function (cells) {
+exports.highlight = function (cells) {
     cells.forEach(xy => {
         let x = xy.x
         let y = xy.y
         let cell = document.getElementById(`c-${y}-${x}`)
         cell.style.background = 'red'
     })
-    await new Promise(resolve => setTimeout(resolve, 1000));
 }

@@ -21,9 +21,11 @@ function leaveGame() {
 }
 
 function doMoveAndUpdateState(cell1, cell2) {
-    // let newState = move(currentState, cell1, cell2)
-    currentState.turn = currentState.turn + 1
-    socket.emit('state', currentState);
+    if (socket.id === currentState.turn) {
+        let newState = move(currentState, cell1, cell2)
+        currentState = newState
+        socket.emit('state', currentState);
+    }
 }
 
 function myTurn() {
@@ -45,13 +47,13 @@ socket.on('join', player => {
     }
 });
 
-socket.on('state', player => {
+socket.on('state', (state, player) => {
     currentState = state
     addLog("New state: " + JSON.stringify(currentState))
     visualize(currentState)
 });
 
-socket.on('leave', (state, player) => {
+socket.on('leave', player => {
     addLog(JSON.stringify(player) + " left the game")
 });
 

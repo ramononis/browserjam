@@ -8,7 +8,7 @@ let state = new State(1)
 
 document.addEventListener("DOMContentLoaded", () => {
     // visualize({})
-    document.querySelector('#join').addEventListener("click", () => { joinGame("testRoomFour", "player" + Math.floor(Math.random() * 1000)) })
+    document.querySelector('#join').addEventListener("click", () => { joinGame("testRoom0124", "player" + Math.floor(Math.random() * 1000)) })
     document.querySelector('#move').addEventListener("click", () => { doMoveAndUpdateState({}, {}) })
     document.querySelector('#leave').addEventListener("click", () => { leaveGame() })
 })

@@ -29,7 +29,7 @@ socket.on('join', player => {
 
     if ( player.id !== socket.id && players.size === 2 ) {
         currentState = new State(41)
-        currentState.turn = players.keys[Math.random.int(0, players.length)]
+        currentState.turn = players.keys[Math.floor(Math.random(0, players.length))]
         socket.emit('state', currentState);
     }
 

@@ -1,4 +1,4 @@
-const {doMoveAndUpdateState} = require("./Server");
+// const {doMoveAndUpdateState} = require("./Server");
 
 function visualize(state) {
     const table = document.querySelector('#table-board')
@@ -76,19 +76,21 @@ document.addEventListener("drop", function(event) {
     // move dragged elem to the selected drop target
 
     let target = event.target
+    console.log("in while: " + JSON.stringify(target))
     while(target) {
-        if (event.target.className === "dropzone") {
+        if (target.className === "dropzone") {
+            console.log("in while: " + JSON.stringify(target))
             event.target.style.background = "";
-            let row1 = dragged.getAttribute('row')
-            let col1 = dragged.getAttribute('col')
-            let row2 = target.getAttribute('row')
-            let col2 = target.getAttribute('col')
+            let row1 = parseInt(dragged.getAttribute('row'))
+            let col1 = parseInt(dragged.getAttribute('col'))
+            let row2 = parseInt(target.getAttribute('row'))
+            let col2 = parseInt(target.getAttribute('col'))
+            const {doMoveAndUpdateState} = require("./Server");
             doMoveAndUpdateState(row1, col1, row2, col2)
             break;
         }
         target = target.parentNode
     }
 }, false);
-
 
 exports.visualize = visualize

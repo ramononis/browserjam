@@ -55,6 +55,10 @@ socket.on('join', player => {
 });
 
 socket.on('state', (state, player) => {
+    addLog("Score: " + state.score1)
+    if (player.id !== socket.id) {
+        addLog("It's your turn!")
+    }
     currentState = state
     visualize(currentState)
 });
@@ -64,7 +68,7 @@ socket.on('leave', player => {
 });
 
 function addLog(message) {
-    lines = lines + "<br/><br/>" + message
+    lines = message + "<br/><br/>" + lines
     document.querySelector('#debugp').textContent = lines
     document.querySelector('#debugp').innerHTML = lines
 }

@@ -1,7 +1,7 @@
 const MIN_MATCH_LENGTH = 3
 function move(state, x1, y1, x2, y2) {
     // Check that selected cells are adjacent
-    if !_cellsAreAdjacent(state, x1, y1, x2, y2) {
+    if (!_cellsAreAdjacent(state, x1, y1, x2, y2)) {
         // invalid move,
         // TODO: emit something?
         return;
@@ -27,9 +27,9 @@ function move(state, x1, y1, x2, y2) {
 }
 
 // Check whether cells are allowed to be swapped
-function _cellsAreAdjecent(state, x1, y1, x2, y2) {
-    if (x1 === x2 && (y1 === y2-1 || y1 == y2 + 1)) { return true}
-    if (y1 === y2 && (x1 === x2-1 || x1 == x2 + 1)) { return true}
+function _cellsAreAdjacent(state, x1, y1, x2, y2) {
+    if (x1 === x2 && (y1 === y2-1 || y1 === y2 + 1)) { return true}
+    if (y1 === y2 && (x1 === x2-1 || x1 === x2 + 1)) { return true}
     return false
 }
 
@@ -109,7 +109,7 @@ function _removeCells(state, cellsToRemove) {
     for (let y = state.board.length - 1; y >= 0; y--) {
         for (let x = state.board.length - 1; x >= 0; x--) {
             if (board.state[y][x] === null) {
-                board.state[y][x] = Math.floor(Math.random(0, N_COLORS))
+                board.state[y][x] = Math.floor(Math.random() * N_COLORS)
             }
         }
     }

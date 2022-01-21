@@ -5,13 +5,20 @@
   <script src="./index.js" charset="utf-8"></script>
   <link rel="stylesheet" href="./style.css"/>
   <title>Title</title>
+  <style>
+    input {
+      margin-bottom: 8px;
+      margin-right: 4px;
+    }
+  </style>
 </head>
 <body>
-<table id="table-board"></table>
-<p>test</p>
+<input type="text" id="playername" /><label for="playername" id="playernamelabel">Player name</label>
+<br />
+<input type="text" id="roomname" /><label for="roomname" id="roomnamelabel">Room name</label>
+<br />
 <button id="join">Join</button>
-<button id="leave">Leave</button>
-<button id="move">Move</button>
-<p id="debugp">text</p>
+<table id="table-board"></table>
+<p id="debugp"></p>
 </body>
 </html>

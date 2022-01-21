@@ -20,9 +20,9 @@ function leaveGame() {
     addLog("Left the game")
 }
 
-function doMoveAndUpdateState(cell1, cell2) {
+function doMoveAndUpdateState(row1, col1, row2, col2) {
     if (socket.id === currentState.turn) {
-        let newState = move(currentState, cell1, cell2)
+        let newState = move(currentState, col1, row1, col2, row2)
         currentState = newState
         socket.emit('state', currentState);
     }

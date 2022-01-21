@@ -1,0 +1,19 @@
+{
+  "name": "browserjam",
+  "scripts": {
+    "start": "node ./game/index.js",
+    "web": "node ./game/index.js",
+    "dev": "nodemon ./game/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "random": "^3.0.6",
+    "socket.io": "^4.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}

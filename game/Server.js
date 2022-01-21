@@ -46,13 +46,13 @@ socket.on('join', player => {
 });
 
 socket.on('state', player => {
-    addLog(JSON.stringify(player) + " left the game")
+    currentState = state
+    addLog("New state: " + JSON.stringify(currentState))
+    visualize(currentState)
 });
 
 socket.on('leave', (state, player) => {
-    currentState = state
-    addLog("New state: " + JSON.stringify(currentState))
-    visualize(state)
+    addLog(JSON.stringify(player) + " left the game")
 });
 
 function addLog(message) {

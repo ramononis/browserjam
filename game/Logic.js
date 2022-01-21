@@ -50,11 +50,11 @@ function _findMatches(state) {
 
     // Horizontal matches
     for (let y = 0; y < state.board.length - (MIN_MATCH_LENGTH - 1); y++) {
-        for (let x = 0; x < state.board.lenght - (MIN_MATCH_LENGTH - 1); x++) {
+        for (let x = 0; x < state.board.length - (MIN_MATCH_LENGTH - 1); x++) {
             let col = state.board[y][x]
             let end = x + 1
             let match = []
-            while (end < state.board.lenght && state.board[y][end] === col) {
+            while (end < state.board.length && state.board[y][end] === col) {
                 match.push({x: end, y: y})
                 end++
             }

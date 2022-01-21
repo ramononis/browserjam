@@ -18,7 +18,7 @@ function joinGame(roomName, playerName) {
 
 function leaveGame() {
     socket.emit('leave');
-    addLog("Left the game")
+    addLog("Leaving the game")
 }
 
 function doMoveAndUpdateState(row1, col1, row2, col2) {
@@ -36,14 +36,15 @@ function myTurn() {
 
 socket.on('join', player => {
     players[player.id] = player;
-    addLog(JSON.stringify(player) + " joined the game")
+    addLog(player.id + " joined the game")
 
     if (player.id !== socket.id) {
         idOtherPlayer = player.id
     }
 
     if ( player.id !== socket.id && Object.keys(players).length === 2 ) {
-        currentState = new State(41)
+        currentState = move(new State(41), 0, 0, 0, 1)
+        currentState.score1 = 0
         currentState.turn = idOtherPlayer
         socket.emit('state', currentState);
     }
@@ -55,12 +56,11 @@ socket.on('join', player => {
 
 socket.on('state', (state, player) => {
     currentState = state
-    addLog("New state: " + JSON.stringify(currentState))
     visualize(currentState)
 });
 
 socket.on('leave', player => {
-    addLog(JSON.stringify(player) + " left the game")
+    addLog(player.id + " left the game")
 });
 
 function addLog(message) {

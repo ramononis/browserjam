@@ -1,6 +1,7 @@
 const {N_COLORS} = require("./State");
+const {highlight} = require("./Interface");
 const MIN_MATCH_LENGTH = 3
-function move(state, x1, y1, x2, y2) {
+async function move(state, x1, y1, x2, y2) {
     // Check that selected cells are adjacent
     if (!_cellsAreAdjacent(state, x1, y1, x2, y2)) {
         // invalid move,
@@ -20,6 +21,7 @@ function move(state, x1, y1, x2, y2) {
                 cellsToRemove.push(c)
             })
         })
+        await highlight(cellsToRemove)
         //Remove cells
         _removeCells(state, cellsToRemove)
     }

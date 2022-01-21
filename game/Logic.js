@@ -13,9 +13,11 @@ function move(state, x1, y1, x2, y2) {
     // While matches are detected:
     for (let matches = _findMatches(state); matches.length > 0; matches = _findMatches(state)) {
         let cellsToRemove = []
-        matches.forEach(m => {
-            console.log(m)
-            // Assign score
+        matches.equal.forEach(m => {
+            state.score1++
+            m.forEach(c => {
+                cellsToRemove.push(c)
+            })
         })
         //Remove cells
         _removeCells(state, cellsToRemove)

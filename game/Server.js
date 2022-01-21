@@ -20,11 +20,16 @@ function doMoveAndUpdateState(cell1, cell2) {
     socket.emit('state', newState);
 }
 
+function myTurn() {
+    return currentState.turn == socket.id
+}
+
 socket.on('join', player => {
     players[player.id] = player;
 
     if ( player.id !== socket.id && players.size === 2 ) {
         currentState = new State(41)
+        currentState.turn = players.keys[Math.floor(Math.random(0, players.length))]
         socket.emit('state', currentState);
     }
 

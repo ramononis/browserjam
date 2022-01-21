@@ -12,7 +12,7 @@ class State {
         for (let i = 0; i < BOARD_SIZE; i++) {
             this.board.push([]);
             for (let j = 0; j < BOARD_SIZE; j++) {
-                this.board[i].push(1)
+                this.board[i].push(Math.floor(Math.random(0, N_COLORS)))
             }
         }
     }

@@ -1,6 +1,5 @@
-const {doMoveAndUpdateState} = require("./Server");
-
 function visualize(state) {
+    if (!state) return
     const table = document.querySelector('#table-board')
     while (table.firstChild) {
         table.removeChild(table.firstChild);

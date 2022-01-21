@@ -31,7 +31,11 @@ function _cellsAreAdjecent(state, x1, y1, x2, y2) {
 }
 
 // Swap cells (changes the state!)
-function _swapCells(state, cell1, cell2) {
+function _swapCells(state, x1, y1, x2, y2) {
+    let cell1 = state.board[y1][x1]
+    let cell2 = state.board[y2][x2]
+    state.board[y2][x2] = cell1
+    state.board[y1][x1] = cell2
     return state
 }
 

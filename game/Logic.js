@@ -1,13 +1,13 @@
-function move(state, cell1, cell2) {
+function move(state, x1, y1, x2, y2) {
     // Check that selected cells are adjacent
-    if !_cellsAreAdjacent(state, cell1, cell2) {
+    if !_cellsAreAdjacent(state, x1, y1, x2, y2) {
         // invalid move,
         // TODO: emit something?
         return;
     }
 
     // Swap cells
-    _swapCells(state, cell1, cell2)
+    _swapCells(state, x1, y1, x2, y2)
 
     // While matches are detected:
     for (let matches = _findMatches(state); matches.length > 0; matches = _findMatches(state)) {
@@ -24,8 +24,10 @@ function move(state, cell1, cell2) {
 }
 
 // Check whether cells are allowed to be swapped
-function _cellsAreAdjecten(state, cell1, cell2) {
-    return true
+function _cellsAreAdjecent(state, x1, y1, x2, y2) {
+    if (x1 === x2 && (y1 === y2-1 || y1 == y2 + 1)) { return true}
+    if (y1 === y2 && (x1 === x2-1 || x1 == x2 + 1)) { return true}
+    return false
 }
 
 // Swap cells (changes the state!)

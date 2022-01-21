@@ -79,12 +79,39 @@ function _findMatches(state) {
             y = end - 1
         }
     }
-    
+
     return matches
 }
 
 // Removes the provided cells from the states, moves remaining cells 'down', fills empty space with new cells.
 function _removeCells(state, cellsToRemove) {
+    // Clear cells
+    cellsToRemove.forEach(c => {
+        state.board[c.y][c.x] = null
+    })
+
+    // Move cells down
+    for (let y = state.board.length - 1; y >= 0; y--) {
+        for (let x = state.board.length - 1; x >= 0; x--) {
+            if (board.state[y][x] === null) {
+                for (let y2 = y; y <= 0; y--) {
+                    if (board.state[y2][x] !== null) {
+                        state = _swapCells(state, x, y, x, y2)
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    for (let y = state.board.length - 1; y >= 0; y--) {
+        for (let x = state.board.length - 1; x >= 0; x--) {
+            if (board.state[y][x] === null) {
+                board.state[y][x] = Math.floor(Math.random(0, N_COLORS))
+            }
+        }
+    }
+
     return state
 }
 

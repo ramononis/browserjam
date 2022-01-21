@@ -1,3 +1,5 @@
+const {doMoveAndUpdateState} = require("./Server");
+
 function visualize(state) {
     const table = document.querySelector('#table-board')
     while (table.firstChild) {
@@ -12,11 +14,12 @@ function visualize(state) {
             let tableCell = tableRow.insertCell();
             tableCell.classList.add('dropzone')
             tableCell.id = `c-${row}-${col}`
+            tableCell.setAttribute('row', `${row}`)
+            tableCell.setAttribute('col', `${col}`)
 
             let cell = document.createElement('div')
             cell.classList.add('draggable',`type-${stateCell}`)
             cell.setAttribute('draggable', 'true')
-            cell.innerText = stateCell
 
             tableCell.appendChild(cell)
         })
@@ -31,7 +34,7 @@ let dragged;
 // }, false);
 
 document.addEventListener("dragstart", function(event) {
-    dragged = event.target;
+    dragged = event.target.parentNode;
     event.target.style.opacity = '.5';
 }, false);
 
@@ -76,7 +79,11 @@ document.addEventListener("drop", function(event) {
     while(target) {
         if (event.target.className === "dropzone") {
             event.target.style.background = "";
-
+            let row1 = dragged.getAttribute('row')
+            let col1 = dragged.getAttribute('col')
+            let row2 = target.getAttribute('row')
+            let col2 = target.getAttribute('col')
+            doMoveAndUpdateState(row1, col1, row2, col2)
             break;
         }
         target = target.parentNode

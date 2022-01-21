@@ -1,3 +1,4 @@
+const MIN_MATCH_LENGTH = 3
 function move(state, x1, y1, x2, y2) {
     // Check that selected cells are adjacent
     if !_cellsAreAdjacent(state, x1, y1, x2, y2) {
@@ -41,7 +42,45 @@ function _swapCells(state, x1, y1, x2, y2) {
 
 // Return a list of matches found in the current state
 function _findMatches(state) {
-    return []
+    let matches = {}
+    matches['equal'] = []
+    matches['diff'] = []
+
+    // Horizontal matches
+    for (let y = 0; y < state.board.length - (MIN_MATCH_LENGTH - 1); y++) {
+        for (let x = 0; x < state.board.lenght - (MIN_MATCH_LENGTH - 1); x++) {
+            let col = state.board[y][x]
+            let end = x + 1
+            let match = []
+            while (end < state.board.lenght && state.board[y][end] === col) {
+                match.push({x: end, y: y})
+                end++
+            }
+            if (end - x >= MIN_MATCH_LENGTH) { // This is a match
+                matches.equal.push(match)
+            }
+            x = end - 1
+        }
+    }
+
+    // Horizontal matches
+    for (let x = 0; x < state.board.length - (MIN_MATCH_LENGTH - 1); x++) {
+        for (let y = 0; y < state.board.lenght - (MIN_MATCH_LENGTH - 1); y++) {
+            let col = state.board[y][x]
+            let end = y + 1
+            let match = []
+            while (end < state.board.lenght && state.board[end][x] === col) {
+                match.push({x: x, y: end})
+                end++
+            }
+            if (end - y >= MIN_MATCH_LENGTH) { // This is a match
+                matches.equal.push(match)
+            }
+            y = end - 1
+        }
+    }
+    
+    return matches
 }
 
 // Removes the provided cells from the states, moves remaining cells 'down', fills empty space with new cells.

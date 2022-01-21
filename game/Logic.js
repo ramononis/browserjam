@@ -1,3 +1,4 @@
+const {N_COLORS} = require("./State");
 const MIN_MATCH_LENGTH = 3
 function move(state, x1, y1, x2, y2) {
     // Check that selected cells are adjacent
@@ -11,7 +12,7 @@ function move(state, x1, y1, x2, y2) {
     _swapCells(state, x1, y1, x2, y2)
 
     // While matches are detected:
-    for (let matches = _findMatches(state); matches.length > 0; matches = _findMatches(state)) {
+    for (let matches = _findMatches(state); matches.equal.length > 0; matches = _findMatches(state)) {
         let cellsToRemove = []
         matches.equal.forEach(m => {
             state.score1++
@@ -49,11 +50,11 @@ function _findMatches(state) {
     matches['diff'] = []
 
     // Horizontal matches
-    for (let y = 0; y < state.board.length - (MIN_MATCH_LENGTH - 1); y++) {
+    for (let y = 0; y < state.board.length; y++) {
         for (let x = 0; x < state.board.length - (MIN_MATCH_LENGTH - 1); x++) {
             let col = state.board[y][x]
             let end = x + 1
-            let match = []
+            let match = [{x: x, y: y}]
             while (end < state.board.length && state.board[y][end] === col) {
                 match.push({x: end, y: y})
                 end++
@@ -65,13 +66,13 @@ function _findMatches(state) {
         }
     }
 
-    // Horizontal matches
-    for (let x = 0; x < state.board.length - (MIN_MATCH_LENGTH - 1); x++) {
-        for (let y = 0; y < state.board.lenght - (MIN_MATCH_LENGTH - 1); y++) {
+    // Vertical matches
+    for (let x = 0; x < state.board.length; x++) {
+        for (let y = 0; y < state.board.length - (MIN_MATCH_LENGTH - 1); y++) {
             let col = state.board[y][x]
             let end = y + 1
-            let match = []
-            while (end < state.board.lenght && state.board[end][x] === col) {
+            let match = [{x: x, y: y}]
+            while (end < state.board.length && state.board[end][x] === col) {
                 match.push({x: x, y: end})
                 end++
             }
@@ -95,9 +96,9 @@ function _removeCells(state, cellsToRemove) {
     // Move cells down
     for (let y = state.board.length - 1; y >= 0; y--) {
         for (let x = state.board.length - 1; x >= 0; x--) {
-            if (board.state[y][x] === null) {
-                for (let y2 = y; y <= 0; y--) {
-                    if (board.state[y2][x] !== null) {
+            if (state.board[y][x] === null) {
+                for (let y2 = y; y >= 0; y--) {
+                    if (state.board[y2][x] !== null) {
                         state = _swapCells(state, x, y, x, y2)
                         break
                     }
@@ -108,8 +109,8 @@ function _removeCells(state, cellsToRemove) {
 
     for (let y = state.board.length - 1; y >= 0; y--) {
         for (let x = state.board.length - 1; x >= 0; x--) {
-            if (board.state[y][x] === null) {
-                board.state[y][x] = Math.floor(Math.random() * N_COLORS)
+            if (state.board[y][x] === null) {
+                state.board[y][x] = Math.floor(Math.random() * N_COLORS)
             }
         }
     }

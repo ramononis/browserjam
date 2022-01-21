@@ -24,3 +24,4 @@ class State {
     turn = 0 // 0 -> player1, 1 -> player2
 }
 exports.State = State
+exports.N_COLORS = N_COLORS
